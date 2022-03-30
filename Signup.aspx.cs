@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -76,7 +71,7 @@ namespace HealthcareData
                 using (SqlCommand cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add(new SqlParameter("@Id", Guid.NewGuid().ToString("N").ToUpper()+DateTime.UtcNow.Ticks));
+                    cmd.Parameters.Add(new SqlParameter("@Id", Guid.NewGuid().ToString("N").ToUpper() + DateTime.UtcNow.Ticks));
                     cmd.Parameters.Add(new SqlParameter("@Name", Name.Text));
                     cmd.Parameters.Add(new SqlParameter("@EmailID", EmailAddress.Text));
                     cmd.Parameters.Add(new SqlParameter("@Password", Password.Text));

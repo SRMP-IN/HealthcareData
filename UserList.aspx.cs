@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -32,7 +27,7 @@ namespace HealthcareData
                 DataSet ds = new DataSet();
                 using (SqlConnection conn = new SqlConnection(ConStr))
                 {
-                    string qry = "Select * from UserTable";
+                    string qry = "Select * from UserTable where  LoginType<>'Doctor'";
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(qry, conn))
                     {

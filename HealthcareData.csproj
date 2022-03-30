@@ -69,6 +69,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Doctor.aspx" />
+    <Content Include="DoctorAdd.aspx" />
     <Content Include="DoctorEdit.aspx" />
     <Content Include="DoctorList.aspx" />
     <Content Include="Logout.aspx" />
@@ -100,6 +101,13 @@
     </Compile>
     <Compile Include="Doctor.aspx.designer.cs">
       <DependentUpon>Doctor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DoctorAdd.aspx.cs">
+      <DependentUpon>DoctorAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DoctorAdd.aspx.designer.cs">
+      <DependentUpon>DoctorAdd.aspx</DependentUpon>
     </Compile>
     <Compile Include="DoctorEdit.aspx.cs">
       <DependentUpon>DoctorEdit.aspx</DependentUpon>

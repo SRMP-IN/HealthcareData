@@ -30,7 +30,7 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active">
+                            <li  >
                                 <a href="Admin.aspx">Home</a>
                             </li>
                             <li>
@@ -40,7 +40,7 @@
 
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active">
+                            <li  >
                                 <a>
                                     <asp:Label ID="LoginName" runat="server" />
                                     <span class="sr-only">(current)</span></a></li>

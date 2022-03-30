@@ -11,7 +11,7 @@ namespace HealthcareData
 {
 
 
-    public partial class DoctorEdit
+    public partial class DoctorAdd
     {
 
         /// <summary>

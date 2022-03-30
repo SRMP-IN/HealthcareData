@@ -28,7 +28,7 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li  ><a href="#">Home</a></li>
                             <li><a href="#">About</a></li>
                             <li><a href="#">Contact</a></li>
                             <li class="dropdown">
@@ -45,7 +45,7 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
+                            <li  ><a href="./">Default <span class="sr-only">(current)</span></a></li>
                             <li><a href="../navbar-static-top/">Static top</a></li>
                             <li><a href="../navbar-fixed-top/">Fixed top</a></li>
                         </ul>
