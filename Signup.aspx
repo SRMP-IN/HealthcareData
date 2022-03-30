@@ -13,7 +13,8 @@
     <script src="Content/jquery.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="background-position: center center; background-image: url('Content/image1.jpg'); height: 531px; width: 90%;">
+
         <form class="form-signin" runat="server">
             <h2 class="form-signin-heading"><%: Page.Title %></h2>
 
@@ -22,20 +23,29 @@
                 <asp:TextBox runat="server" ID="Name" class="form-control"></asp:TextBox>
             </div>
             <div class="form-group">
-                <label>Age</label>
-                <asp:TextBox runat="server" ID="Age" TextMode="Number" min="1" max="200"  class="form-control"></asp:TextBox>
+                <table style="width: 65%;">
+                    <tr>
+                        <td>
+                            <label>Age</label>
+                            <asp:TextBox runat="server" ID="Age" TextMode="Number" min="1" max="200" class="form-control"></asp:TextBox>
+
+                        </td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td>
+                            <label>Gender</label>
+                            <asp:DropDownList runat="server" ID="Gender" CssClass="form-control">
+                                <asp:ListItem Text="Male" Value="Male" />
+                                <asp:ListItem Text="Female" Value="Female" />
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <div class="form-group">
-                <label>Gender</label>
-                <asp:DropDownList runat="server" ID="Gender" CssClass="form-control">
-                    <asp:ListItem Text="Male" Value="Male" />
-                    <asp:ListItem Text="Female" Value="Female" />
-                </asp:DropDownList>
-            </div>
+
             <div class="form-group">
                 <label>PhoneNo</label>
-                <asp:TextBox runat="server" ID="PhoneNo" TextMode="Number"  min="1" max="9999999999" class="form-control"></asp:TextBox>
-                 
+                <asp:TextBox runat="server" ID="PhoneNo" TextMode="Number" min="1" max="9999999999" class="form-control"></asp:TextBox>
+
             </div>
             <div class="form-group">
                 <label>Email Address</label>
