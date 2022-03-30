@@ -10,9 +10,6 @@ namespace HealthcareData
         {
             ErorrMessage.Text = "";
             ErorrMessage.Visible = false;
-
-            EmailAddress.Text = "Email Address";
-            Password.Text = "Password";
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
