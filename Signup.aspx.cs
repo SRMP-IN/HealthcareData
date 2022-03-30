@@ -13,7 +13,6 @@ namespace HealthcareData
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.Title = "Signup";
             ErorrMessage.Text = "";
             ErorrMessage.Visible = false;
             Session.Abandon();
@@ -41,11 +40,7 @@ namespace HealthcareData
                 return;
             }
 
-
-
             string ConStr = System.Configuration.ConfigurationManager.AppSettings["ConStr"].ToString();
-
-           
 
             DataSet ds = new DataSet();
             using (SqlConnection conn = new SqlConnection(ConStr))
@@ -70,11 +65,8 @@ namespace HealthcareData
                     ErorrMessage.Text = "email already exists, please check with system admin";
                     ErorrMessage.Visible = true;
                     return;
-
-                } 
+                }
             }
-
-            
 
             ds = new DataSet();
             using (SqlConnection conn = new SqlConnection(ConStr))
@@ -84,7 +76,7 @@ namespace HealthcareData
                 using (SqlCommand cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add(new SqlParameter("@Id", DateTime.UtcNow.Ticks));
+                    cmd.Parameters.Add(new SqlParameter("@Id", Guid.NewGuid().ToString("N").ToUpper()+DateTime.UtcNow.Ticks));
                     cmd.Parameters.Add(new SqlParameter("@Name", Name.Text));
                     cmd.Parameters.Add(new SqlParameter("@EmailID", EmailAddress.Text));
                     cmd.Parameters.Add(new SqlParameter("@Password", Password.Text));
@@ -97,8 +89,7 @@ namespace HealthcareData
                 conn.Close();
             }
             ErorrMessage.Text = "Create Successful, Login now.";
-            ErorrMessage.Visible = true;            
-
+            ErorrMessage.Visible = true;
         }
     }
 }

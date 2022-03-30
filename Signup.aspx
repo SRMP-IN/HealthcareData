@@ -6,8 +6,8 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
-    <link href="Content/Site.css" rel="stylesheet" />
+    <title> Signup</title>
+   <link href="Content/Site.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <script src="Content/bootstrap.js"></script>
     <script src="Content/jquery.js"></script>
@@ -16,7 +16,7 @@
     <div class="container" style="background-position: center center; background-image: url('Content/image1.jpg'); height: 531px; width: 90%;">
 
         <form class="form-signin" runat="server">
-            <h2 class="form-signin-heading"><%: Page.Title %></h2>
+            <h2 class="form-signin-heading">Signup</h2>
 
             <div class="form-group">
                 <label>Name</label>

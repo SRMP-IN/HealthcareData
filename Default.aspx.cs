@@ -13,12 +13,12 @@ namespace HealthcareData
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.Title = "Login";
+             
             ErorrMessage.Text = "";
             ErorrMessage.Visible = false;
-            Session.Abandon();
+           
             EmailAddress.Text = "Admin";
-            Password.Text = "Admin@s123";
+            Password.Text = "Admin@123";
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
