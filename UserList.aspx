@@ -12,7 +12,7 @@
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <script src="Content/bootstrap.js"></script>
     <script src="Content/jquery.js"></script>
-     
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -55,15 +55,16 @@
             <div class=" ">
                 <h2>User List </h2>
                 <br />
-                <asp:GridView ID="Grid" class="table table-bordered" runat="server" AutoGenerateColumns="false"  >
+                <asp:GridView ID="Grid" class="table table-bordered" runat="server" AutoGenerateColumns="false">
                     <Columns>
                         <asp:BoundField DataField="Name" HeaderText="Name" />
                         <asp:BoundField DataField="EmailID" HeaderText="EmailID" />
-                        <%--<asp:BoundField DataField="Password" HeaderText="Password" />--%>
+                        <asp:BoundField DataField="Password" HeaderText="Password" />
                         <asp:BoundField DataField="Age" HeaderText="Age" />
                         <asp:BoundField DataField="Gender" HeaderText="Gender" />
                         <asp:BoundField DataField="PhoneNo" HeaderText="PhoneNo" />
                         <asp:BoundField DataField="LoginType" HeaderText="LoginType" />
+                        <asp:HyperLinkField DataNavigateUrlFields="Id" HeaderText="Edit" Text="Edit" DataNavigateUrlFormatString="~/UserEdit.aspx?Id={0}" />
                     </Columns>
                     <PagerStyle HorizontalAlign="Right" CssClass="GridPager" />
                 </asp:GridView>

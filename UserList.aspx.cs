@@ -20,7 +20,7 @@ namespace HealthcareData
                 string UserLoginType = Session["UserLoginType"].ToString();
                 string UserEmailID = Session["UserEmailID"].ToString();
 
-                LoginName.Text = UserName; 
+                LoginName.Text = UserName;
 
                 if (UserLoginType != "Admin")
                 {
@@ -32,12 +32,11 @@ namespace HealthcareData
                 DataSet ds = new DataSet();
                 using (SqlConnection conn = new SqlConnection(ConStr))
                 {
-                    string qry = "Select * from UserTable where Id=@UserId";
+                    string qry = "Select * from UserTable";
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(qry, conn))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.Add(new SqlParameter("@UserId", UserId));
                         SqlDataAdapter adapt = new SqlDataAdapter(cmd);
                         adapt.Fill(ds);
                     }
