@@ -11,8 +11,8 @@ namespace HealthcareData
             ErorrMessage.Text = "";
             ErorrMessage.Visible = false;
 
-            EmailAddress.Text = "Adm22in@admin.con";
-            Password.Text = "3232";
+            EmailAddress.Text = "Email Address";
+            Password.Text = "Password";
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)

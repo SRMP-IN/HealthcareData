@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="User.aspx.cs" Inherits="HealthcareData.User" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PrescriptionEdit.aspx.cs" Inherits="HealthcareData.PrescriptionEdit" %>
 
 <!DOCTYPE html>
 
@@ -36,7 +36,8 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a> <b>Welcome ! <asp:Label ID="LoginName" runat="server" /></b> <span class="sr-only">(current)</span></a></li>
+                                <a><b>Welcome !
+                                    <asp:Label ID="LoginName" runat="server" /></b> <span class="sr-only">(current)</span></a></li>
                             <li><a href="Logout.aspx">Log Out</a></li>
                         </ul>
                     </div>
@@ -46,15 +47,15 @@
 
 
             <div class=" ">
-                <h4>Book a Doctor's  Appointment </h4>
+                <h4>Doctor's  Appointment Detail </h4>
                 <br />
-                 
+
                 <table style="width: 100%;">
                     <tr>
                         <td colspan="3">
                             <div class="form-group">
                                 <label>Doctor Name</label>
-                                <asp:DropDownList runat="server" ID="DoctorList" CssClass="form-control" style="max-width: 90% !important;">
+                                <asp:DropDownList runat="server" ID="DoctorList" CssClass="form-control" Style="max-width: 93% !important;">
                                 </asp:DropDownList>
                             </div>
                         </td>
@@ -70,7 +71,7 @@
                         </td>
                         <td>
                             <div class="form-group">
-                               <label>Patient Gender</label>
+                                <label>Patient Gender</label>
                                 <asp:DropDownList runat="server" ID="PatientGender" CssClass="form-control">
                                     <asp:ListItem Text="Male" Value="Male" />
                                     <asp:ListItem Text="Female" Value="Female" />
@@ -85,59 +86,67 @@
                         </td>
                     </tr>
 
-                    
+
                     <tr>
                         <td>
                             <div class="form-group">
                                 <label>Patient Detail</label>
-                                <asp:TextBox TextMode="MultiLine"  runat="server" ID="PatientDetail"  class="form-control"></asp:TextBox>
+                                <asp:TextBox TextMode="MultiLine" runat="server" ID="PatientDetail" class="form-control"></asp:TextBox>
                             </div>
 
                         </td>
                         <td>
                             <div class="form-group">
                                 <label>Booking Slot</label>
-                                <asp:TextBox runat="server" ID="BookingSlot" type="datetime-local"   class="form-control"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="BookingSlot" ReadOnly class="form-control"></asp:TextBox>
                             </div>
                         </td>
 
-                         <td>
+                        <td>
+                            <div class="form-group">
+                                <label>Attended</label>
+                                <asp:TextBox ReadOnly runat="server" ID="Checked" class="form-control"></asp:TextBox>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
                             <div class="form-group">
                                 <label>Symptoms</label>
-                                <asp:TextBox TextMode="MultiLine" runat="server" ID="Symptoms"   class="form-control"></asp:TextBox>
+                                <asp:TextBox Style="max-width: 93% !important;" TextMode="MultiLine" Rows="3" runat="server" ID="Symptoms" class="form-control"></asp:TextBox>
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <div class="form-group">
+                                <label>Prescription</label>
+                                <asp:TextBox Style="max-width: 93% !important;" TextMode="MultiLine" Rows="10" runat="server" ID="Prescription" class="form-control"></asp:TextBox>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="form-group">
+                                <label>Reports</label>
+                                <asp:TextBox Style="max-width: 93% !important;" TextMode="MultiLine" Rows="10" runat="server" ID="Reports" type="datetime-local" class="form-control"></asp:TextBox>
                             </div>
                         </td>
                     </tr>
 
-  
                     <tr>
-                        <td>
-                            
-                            <asp:Button Text="Book Now" runat="server" ID="btnSave" OnClick="btnSave_Click" class="btn btn-primary" />
+                        <td colspan="3">
+                            <asp:Button Text="Delete" runat="server" ID="btnSave" OnClick="btnSave_Click" class="btn btn-primary" />
+
+                            <asp:LinkButton Text="Back" runat="server" CssClass="col-md-offset-1" PostBackUrl="~/User.aspx" />
 
                         </td>
-                        
-                         <asp:Label runat="server" ID="ErorrMessage" ForeColor="Red" Font-Bold="true" Enabled="false"></asp:Label>
+                        <asp:Label runat="server" ID="ErorrMessage" ForeColor="Red" Font-Bold="true" Enabled="false"></asp:Label>
                     </tr>
                 </table>
-                 
 
-            </div>
-            <hr />
-            <div class=" ">
-                <h3>Appointment List </h3>
-                <br />
-                <asp:GridView ID="Grid" class="table table-bordered" runat="server" AutoGenerateColumns="false">
-                    <Columns>
-                        <asp:BoundField DataField="DoctorDetail" HeaderText="Doctor Detail" />
-                        <asp:BoundField DataField="PatientName" HeaderText="Patient Name" /> 
-                        <asp:BoundField DataField="BookDate" HeaderText="Book Date" DataFormatString="{0:dd/MM/yyyy HH:mm:tt}" />
-                        <asp:BoundField DataField="BookingSlot" HeaderText="Booking Slot"  DataFormatString="{0:dd/MM/yyyy HH:mm:tt}" />                        
-                        <asp:BoundField DataField="Checked" HeaderText="Attended" NullDisplayText="No" />
-                        <asp:BoundField DataField="Symptoms" HeaderText="Symptoms" />
-                        <asp:HyperLinkField DataNavigateUrlFields="Id" HeaderText="Detail" Text="Detail" DataNavigateUrlFormatString="~/PrescriptionEdit.aspx?Id={0}" />
-                    </Columns>
-                </asp:GridView>
             </div>
         </div>
     </form>

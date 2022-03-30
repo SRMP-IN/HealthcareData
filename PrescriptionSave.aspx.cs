@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace HealthcareData
 {
-    public partial class User : System.Web.UI.Page
+    public partial class PrescriptionSave : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -14,31 +14,28 @@ namespace HealthcareData
                 string UserId = Session["UserId"].ToString();
                 string UserLoginType = Session["UserLoginType"].ToString();
                 string UserEmailID = Session["UserEmailID"].ToString();
-
+                string Id = Request.QueryString["Id"].ToString();
                 LoginName.Text = UserName;
 
-                if (UserLoginType != "User")
+                if (UserLoginType != "Doctor")
                 {
                     Response.Redirect("~/Default.aspx");
                     return;
                 }
-                if (Request.QueryString != null && !string.IsNullOrWhiteSpace(Request.QueryString["Id"]))
-                {
-                    ErorrMessage.Text = Request.QueryString["Id"].ToString();
-                    ErorrMessage.Visible = true;
-                }
+
                 if (!IsPostBack)
                 {
                     string ConStr = System.Configuration.ConfigurationManager.AppSettings["ConStr"].ToString();
                     DataSet ds = new DataSet();
                     using (SqlConnection conn = new SqlConnection(ConStr))
                     {
-                        string qry = "Select * from DoctorAppointment where UserId=@UserId  Order by BookingSlot desc    Select ID,ConCat('Name: ' ,Name,' PhoneNo:',PhoneNo,' ',DoctorDegree,' ',Specialization,' Address: ',Address,'-',City,'-',State,'-') As DoctorName from UserTable where LoginType='Doctor'";
+                        string qry = "Select * from DoctorAppointment where DoctorId=@UserId and Id=@Id Order by BookingSlot desc Select ID,ConCat('Name: ' ,Name,' PhoneNo:',PhoneNo,' ',DoctorDegree,' ',Specialization,' Address: ',Address,'-',City,'-',State,'-') As DoctorName from UserTable where LoginType='Doctor' and Id=@UserId ";
                         conn.Open();
                         using (SqlCommand cmd = new SqlCommand(qry, conn))
                         {
                             cmd.CommandType = CommandType.Text;
                             cmd.Parameters.Add(new SqlParameter("@UserId", UserId));
+                            cmd.Parameters.Add(new SqlParameter("@Id", Id));
                             SqlDataAdapter adapt = new SqlDataAdapter(cmd);
                             adapt.Fill(ds);
                         }
@@ -56,8 +53,17 @@ namespace HealthcareData
 
                         if (ds.Tables[0].Rows.Count > 0)
                         {
-                            Grid.DataSource = ds.Tables[0];
-                            Grid.DataBind();
+                            DoctorList.SelectedValue = Convert.ToString(ds.Tables[0].Rows[0]["DoctorId"]);
+                            PatientName.Text = Convert.ToString(ds.Tables[0].Rows[0]["PatientName"]);
+                            PatientAge.Text = Convert.ToString(ds.Tables[0].Rows[0]["PatientAge"]);
+                            PatientGender.Text = Convert.ToString(ds.Tables[0].Rows[0]["PatientGender"]);
+                            PatientDetail.Text = Convert.ToString(ds.Tables[0].Rows[0]["PatientDetail"]);
+
+                            BookingSlot.Text = Convert.ToString(ds.Tables[0].Rows[0]["BookingSlot"]);
+                            Prescription.Text = Convert.ToString(ds.Tables[0].Rows[0]["Prescription"]);
+                            Reports.Text = Convert.ToString(ds.Tables[0].Rows[0]["Reports"]);
+                            Symptoms.Text = Convert.ToString(ds.Tables[0].Rows[0]["Symptoms"]);
+                            Checked.Text = Convert.ToString(ds.Tables[0].Rows[0]["Checked"]);
                         }
                     }
                 }
@@ -70,64 +76,34 @@ namespace HealthcareData
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(PatientName.Text))
-            {
-                ErorrMessage.Text = "Enter Patient Name";
-                ErorrMessage.Visible = true;
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(BookingSlot.Text))
-            {
-                ErorrMessage.Text = "Enter Booking Slot";
-                ErorrMessage.Visible = true;
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(Symptoms.Text))
-            {
-                ErorrMessage.Text = "Enter Patient Symptoms";
-                ErorrMessage.Visible = true;
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(PatientAge.Text))
-            {
-                ErorrMessage.Text = "Enter Patient Age";
-                ErorrMessage.Visible = true;
-                return;
-            }
             string UserId = Session["UserId"].ToString();
+            string Id = Request.QueryString["Id"].ToString();
 
-            DateTime dt = DateTime.Now;
-            DataSet ds = new DataSet();
             string ConStr = System.Configuration.ConfigurationManager.AppSettings["ConStr"].ToString();
             using (SqlConnection conn = new SqlConnection(ConStr))
             {
-                if (!DateTime.TryParse(BookingSlot.Text.Replace("T", " "), out dt))
-                {
-                    dt = DateTime.Now;
-                }
                 conn.Open();
-                string qry = "INSERT INTO DoctorAppointment (Id ,DoctorId ,DoctorDetail,UserId, PatientName,PatientAge,PatientGender,PatientDetail,BookDate,Symptoms,BookingSlot,Checked) Values(@Id ,@DoctorId ,@DoctorDetail,@UserId, @PatientName,@PatientAge,@PatientGender,@PatientDetail,@BookDate,@Symptoms,@BookingSlot,'No')";
+                string qry = "Update  DoctorAppointment Set  PatientName=@PatientName,PatientAge=@PatientAge,PatientGender=@PatientGender,PatientDetail=@PatientDetail ,Prescription=@Prescription,Reports=@Reports,Symptoms=@Symptoms,Checked=@Checked Where Id=@Id and DoctorId=@UserId";
                 using (SqlCommand cmd = new SqlCommand(qry, conn))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add(new SqlParameter("@Id", Guid.NewGuid().ToString("N").ToUpper() + DateTime.UtcNow.Ticks));
-                    cmd.Parameters.Add(new SqlParameter("@DoctorId", DoctorList.SelectedValue));
-                    cmd.Parameters.Add(new SqlParameter("@DoctorDetail", DoctorList.SelectedItem.ToString()));
+                    cmd.Parameters.Add(new SqlParameter("@Id", Id));
+                    cmd.Parameters.Add(new SqlParameter("@UserId", UserId));
                     cmd.Parameters.Add(new SqlParameter("@PatientName", PatientName.Text));
                     cmd.Parameters.Add(new SqlParameter("@PatientAge", PatientAge.Text));
                     cmd.Parameters.Add(new SqlParameter("@PatientGender", PatientGender.Text));
                     cmd.Parameters.Add(new SqlParameter("@PatientDetail", PatientDetail.Text));
-                    cmd.Parameters.Add(new SqlParameter("@BookingSlot", dt));
+                    cmd.Parameters.Add(new SqlParameter("@Prescription", Prescription.Text));
+                    cmd.Parameters.Add(new SqlParameter("@Reports", Reports.Text));
                     cmd.Parameters.Add(new SqlParameter("@Symptoms", Symptoms.Text));
-                    cmd.Parameters.Add(new SqlParameter("@BookDate", DateTime.Now));
-                    cmd.Parameters.Add(new SqlParameter("@UserId", UserId));
+                    cmd.Parameters.Add(new SqlParameter("@Checked", Checked.Text));
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
             }
             ErorrMessage.Text = "Save Successful";
             ErorrMessage.Visible = true;
-            Response.Redirect($"~/User.aspx?ID=Save Successful");
+            //  Response.Redirect($"~/Doctor.aspx?ID=Save Successful");
         }
     }
 }
